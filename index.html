@@ -136,19 +136,36 @@ button:hover {
 }
 
 /* Efeito glitch */
-
-.glitch {
+.falha {
   animation: glitch 0.9s steps(2, end);
 }
 
+.falha::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    transparent 0px,
+    rgba(255,255,255,0.12) 2px,
+    transparent 4px
+  );
+  pointer-events: none;
+  animation: glitch-linhas 0.9s steps(2, end);
+}
+
 @keyframes glitch {
-  0% { transform: translateX(0); filter: none; }
+  0% { transform: translateX(0); }
   15% { transform: translateX(-8px); filter: invert(1); }
-  30% { transform: translateX(8px); filter: none; }
+  30% { transform: translateX(8px); }
   45% { transform: translateX(-5px); filter: invert(1); }
-  60% { transform: translateX(5px); filter: none; }
+  60% { transform: translateX(5px); }
   75% { transform: translateX(-3px); }
-  100% { transform: translateX(0); filter: none; }
+  100% { transform: translateX(0); }
+}
+
+@keyframes glitch-linhas {
+  0%, 100% { opacity: 0; }
+  20%, 60% { opacity: 1; }
 }
 
 @media (max-width: 380px) {
