@@ -1,222 +1,194 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNDISCOVERED</title>
 
-  <title>...</title>
+<style>
+* { box-sizing: border-box; }
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #08090d;
+  color: #e8e5dc;
+  font-family: Georgia, serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
 
-    body {
-      margin: 0;
-      background: white;
-      color: black;
-      font-family: Arial, sans-serif;
+.container {
+  width: 100%;
+  max-width: 460px;
+  text-align: center;
+  border: 1px solid #45434a;
+  padding: 28px 22px;
+  background: #101116;
+  box-shadow: 0 0 35px #000;
+}
 
-      min-height: 100vh;
+.tag {
+  color: #a69b79;
+  font: 11px monospace;
+  letter-spacing: 4px;
+  margin-bottom: 25px;
+}
 
-      display: flex;
-      justify-content: center;
-      align-items: center;
+h1 {
+  font-size: 27px;
+  font-weight: normal;
+  letter-spacing: 3px;
+  margin: 15px 0 25px;
+}
 
-      text-align: center;
-    }
+img {
+  width: 100%;
+  max-height: 290px;
+  object-fit: cover;
+  margin-bottom: 22px;
+  border: 1px solid #45434a;
+}
 
-    .pagina {
-      width: 90%;
-      max-width: 500px;
-    }
+.clue {
+  color: #c8c5bd;
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 20px 0;
+}
 
-    .pista {
-      font-size: 18px;
-      line-height: 1.7;
-      margin-bottom: 30px;
-    }
+.secret {
+  color: #b7a77b;
+  font-size: 22px;
+  letter-spacing: 5px;
+  margin: 22px 0;
+}
 
-    input {
-      width: 100%;
-      max-width: 320px;
+input {
+  width: 100%;
+  padding: 15px;
+  background: #08090d;
+  border: 1px solid #77716a;
+  color: white;
+  text-align: center;
+  font-size: 16px;
+  letter-spacing: 3px;
+  outline: none;
+  margin-bottom: 14px;
+}
 
-      padding: 14px;
+button {
+  width: 100%;
+  padding: 15px;
+  background: #b7a77b;
+  color: #101116;
+  border: none;
+  font-weight: bold;
+  letter-spacing: 3px;
+  cursor: pointer;
+}
 
-      border: 1px solid black;
+button:hover {
+  background: #d0c094;
+}
 
-      background: white;
-      color: black;
+.error {
+  color: #d27b72;
+  font: 13px monospace;
+  min-height: 20px;
+  margin-top: 14px;
+}
 
-      font-size: 16px;
-      text-align: center;
+.small {
+  color: #777;
+  font: 10px monospace;
+  letter-spacing: 2px;
+  margin-top: 28px;
+}
 
-      outline: none;
-    }
-
-    button {
-      display: block;
-
-      margin: 18px auto 0;
-
-      padding: 12px 25px;
-
-      border: 1px solid black;
-
-      background: white;
-      color: black;
-
-      font-size: 14px;
-
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: black;
-      color: white;
-    }
-
-    .mensagem {
-      margin-top: 20px;
-      font-size: 14px;
-      min-height: 20px;
-    }
-
-    #etapa2 {
-      display: none;
-    }
-
-    .spotify {
-      display: inline-block;
-
-      margin-top: 25px;
-
-      color: black;
-      text-decoration: none;
-
-      border: 1px solid black;
-
-      padding: 12px 22px;
-
-      font-size: 15px;
-    }
-
-    .spotify:hover {
-      background: black;
-      color: white;
-    }
-  </style>
+a {
+  color: #b7a77b;
+  text-decoration: none;
+}
+</style>
 </head>
 
 <body>
 
-  <div class="pagina">
+<main class="container" id="app">
+  <div class="tag">CLASSIFIED FILE // 001</div>
 
-    <!-- ETAPA 1 -->
+  <h1>A SENHA</h1>
 
-    <div id="etapa1">
+  <img src="meme1.jpg" alt="Primeira pista">
 
-      <div class="pista">
+  <p class="clue">
+    Ele se move usando a terceira lei de Newton, que afirma que para toda ação há uma reação igual e oposta.
+  </p>
 
-        Ele se move usando a terceira lei de Newton,
-        que afirma que para toda ação há uma reação
-        igual e oposta.
+  <div class="secret">8766</div>
+  <div class="secret">ουρανός</div>
 
-      </div>
+  <input id="answer" type="text" placeholder="DIGITE A SENHA">
+  <button onclick="checkAnswer()">DESBLOQUEAR</button>
 
+  <div class="error" id="error"></div>
+  <div class="small">ACCESS RESTRICTED</div>
+</main>
 
-      <input
-        type="text"
-        id="resposta"
-        placeholder="Digite a resposta"
-        autocomplete="off"
-      >
+<script>
+let stage = 1;
 
+function checkAnswer() {
+  const answer = document.getElementById("answer").value
+    .trim().toUpperCase();
 
-      <button onclick="verificarResposta()">
+  const error = document.getElementById("error");
 
-        DESBLOQUEAR
+  if (stage === 1 && answer === "HUBBLE") {
+    stage = 2;
+    showSecond();
+  } else if (stage === 2 && answer === "RYU") {
+    showFinal();
+  } else {
+    error.textContent = "SENHA INCORRETA. TENTE NOVAMENTE.";
+  }
+}
 
-      </button>
+function showSecond() {
+  document.getElementById("app").innerHTML = `
+    <div class="tag">CLASSIFIED FILE // 002</div>
+    <h1>A SEGUNDA SENHA</h1>
+    <img src="meme2.jpg" alt="Segunda pista">
+    <p class="clue">📍 Shibuya</p>
+    <input id="answer" type="text" placeholder="DIGITE A SENHA">
+    <button onclick="checkAnswer()">DESBLOQUEAR</button>
+    <div class="error" id="error"></div>
+    <div class="small">ACCESS RESTRICTED</div>
+  `;
+}
 
-
-      <div
-        class="mensagem"
-        id="mensagem">
-      </div>
-
-    </div>
-
-
-    <!-- ETAPA 2 -->
-
-    <div id="etapa2">
-
-      <div class="pista">
-
-        Σπότιφαϊ
-
-        <br><br>
-
-        Hubble-Floats-Free
-
-      </div>
-
-
-      <a
-        class="spotify"
-        href="https://open.spotify.com/playlist/272y43cH5m7wrM2HaSV200"
-        target="_blank"
-      >
-
-        CONTINUAR
-
-      </a>
-
-    </div>
-
-  </div>
-
-
-  <script>
-
-    function verificarResposta() {
-
-      const resposta =
-        document
-          .getElementById("resposta")
-          .value
-          .trim()
-          .toLowerCase();
-
-
-      const mensagem =
-        document.getElementById("mensagem");
-
-
-      if (resposta === "hubble") {
-
-        document
-          .getElementById("etapa1")
-          .style.display = "none";
-
-
-        document
-          .getElementById("etapa2")
-          .style.display = "block";
-
-
-      } else {
-
-        mensagem.textContent =
-          "Hmm... não é essa. Tente novamente.";
-
-      }
-
-    }
-
-  </script>
+function showFinal() {
+  document.getElementById("app").innerHTML = `
+    <div class="tag">FILE UNLOCKED</div>
+    <h1>VOCÊ CONSEGUIU.</h1>
+    <p class="clue">
+      Algumas coisas foram feitas para serem descobertas.
+      Esta é uma delas.
+    </p>
+    <div class="secret">HUBBLE FLOATS FREE</div>
+    <a href="https://open.spotify.com/playlist/272y43cH5m7wrM2HaSV200"
+       target="_blank">
+      <button>ACESSAR PLAYLIST</button>
+    </a>
+    <div class="small">END OF TRANSMISSION</div>
+  `;
+}
+</script>
 
 </body>
-
 </html>
+
