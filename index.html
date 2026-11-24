@@ -103,13 +103,6 @@ button:hover {
   margin-top: 14px;
 }
 
-.final-text {
-  color: #555555;
-  font-size: 16px;
-  line-height: 1.8;
-  margin: 25px 0;
-}
-
 @media (max-width: 380px) {
   .container {
     padding: 22px 16px;
@@ -165,7 +158,8 @@ function checkAnswer(event) {
     .getElementById("answer")
     .value
     .trim()
-    .toUpperCase();
+    .toUpperCase()
+    .replace(/\s+/g, " ");
 
   if (stage === 1 && answer === "HUBBLE") {
     stage = 2;
@@ -173,8 +167,9 @@ function checkAnswer(event) {
     return;
   }
 
-  if (stage === 2 && answer === "RYU") {
-    showFinal();
+  if (stage === 2 && answer === "RYU RESTAURANTE") {
+    window.location.href =
+      "https://open.spotify.com/playlist/272y43cH5m7wrM2HaSV200";
     return;
   }
 
@@ -205,32 +200,6 @@ function showSecond() {
     </form>
 
     <div class="error" id="error"></div>
-
-  `;
-}
-
-function showFinal() {
-
-  document.getElementById("app").innerHTML = `
-
-    <h1>VOCÊ CONSEGUIU.</h1>
-
-    <p class="final-text">
-      Algumas coisas foram feitas para serem descobertas.
-      Esta é uma delas.
-    </p>
-
-    <div class="secret">
-      HUBBLE FLOATS FREE
-    </div>
-
-    <a
-      href="https://open.spotify.com/playlist/272y43cH5m7wrM2HaSV200"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <button type="button">ACESSAR PLAYLIST</button>
-    </a>
 
   `;
 }
