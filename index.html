@@ -4,64 +4,61 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UNDISCOVERED</title>
+<title>Undiscovered</title>
 
 <style>
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
   min-height: 100vh;
-  background: #08090d;
-  color: #e8e5dc;
+  background: #ffffff;
+  color: #252525;
   font-family: Georgia, serif;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 24px;
+  padding: 22px;
 }
 
 .container {
   width: 100%;
   max-width: 460px;
   text-align: center;
-  border: 1px solid #45434a;
+  border: 1px solid #e5e1d8;
   padding: 28px 22px;
-  background: #101116;
-  box-shadow: 0 0 35px #000;
-}
-
-.tag {
-  color: #a69b79;
-  font: 11px monospace;
-  letter-spacing: 4px;
-  margin-bottom: 25px;
+  background: #ffffff;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
 }
 
 h1 {
   font-size: 27px;
   font-weight: normal;
   letter-spacing: 3px;
-  margin: 15px 0 25px;
+  margin: 10px 0 25px;
+  color: #252525;
 }
 
 img {
+  display: block;
   width: 100%;
   max-height: 290px;
   object-fit: cover;
-  margin-bottom: 22px;
-  border: 1px solid #45434a;
+  margin: 0 auto 22px;
+  border: 1px solid #e5e1d8;
 }
 
 .clue {
-  color: #c8c5bd;
+  color: #555555;
   font-size: 15px;
   line-height: 1.7;
   margin: 20px 0;
 }
 
 .secret {
-  color: #b7a77b;
+  color: #9b8960;
   font-size: 22px;
   letter-spacing: 5px;
   margin: 22px 0;
@@ -70,9 +67,9 @@ img {
 input {
   width: 100%;
   padding: 15px;
-  background: #08090d;
-  border: 1px solid #77716a;
-  color: white;
+  background: #ffffff;
+  border: 1px solid #c9c3b8;
+  color: #252525;
   text-align: center;
   font-size: 16px;
   letter-spacing: 3px;
@@ -80,11 +77,15 @@ input {
   margin-bottom: 14px;
 }
 
+input:focus {
+  border-color: #9b8960;
+}
+
 button {
   width: 100%;
   padding: 15px;
   background: #b7a77b;
-  color: #101116;
+  color: #ffffff;
   border: none;
   font-weight: bold;
   letter-spacing: 3px;
@@ -92,32 +93,38 @@ button {
 }
 
 button:hover {
-  background: #d0c094;
+  background: #9b8960;
 }
 
 .error {
-  color: #d27b72;
+  color: #b34b43;
   font: 13px monospace;
   min-height: 20px;
   margin-top: 14px;
 }
 
-.small {
-  color: #777;
-  font: 10px monospace;
-  letter-spacing: 2px;
-  margin-top: 28px;
+.final-text {
+  color: #555555;
+  font-size: 16px;
+  line-height: 1.8;
+  margin: 25px 0;
 }
 
-a {
-  color: #b7a77b;
-  text-decoration: none;
+@media (max-width: 380px) {
+  .container {
+    padding: 22px 16px;
+  }
+
+  h1 {
+    font-size: 23px;
+  }
 }
 </style>
 </head>
 
 <body>
 
+<main class="container" id="app">
 
   <h1>A SENHA</h1>
 
@@ -128,62 +135,107 @@ a {
   </p>
 
   <div class="secret">8766</div>
+
   <div class="secret">ουρανός</div>
 
-  <input id="answer" type="text" placeholder="DIGITE A SENHA">
-  <button onclick="checkAnswer()">DESBLOQUEAR</button>
+  <form onsubmit="checkAnswer(event)">
+    <input
+      id="answer"
+      type="text"
+      placeholder="DIGITE A SENHA"
+      autocomplete="off"
+      required
+    >
+
+    <button type="submit">DESBLOQUEAR</button>
+  </form>
 
   <div class="error" id="error"></div>
+
 </main>
 
 <script>
+
 let stage = 1;
 
-function checkAnswer() {
-  const answer = document.getElementById("answer").value
-    .trim().toUpperCase();
+function checkAnswer(event) {
+  event.preventDefault();
 
-  const error = document.getElementById("error");
+  const answer = document
+    .getElementById("answer")
+    .value
+    .trim()
+    .toUpperCase();
 
   if (stage === 1 && answer === "HUBBLE") {
     stage = 2;
     showSecond();
-  } else if (stage === 2 && answer === "RYU") {
-    showFinal();
-  } else {
-    error.textContent = "SENHA INCORRETA. TENTE NOVAMENTE.";
+    return;
   }
+
+  if (stage === 2 && answer === "RYU") {
+    showFinal();
+    return;
+  }
+
+  document.getElementById("error").textContent =
+    "SENHA INCORRETA. TENTE NOVAMENTE.";
 }
 
 function showSecond() {
+
   document.getElementById("app").innerHTML = `
+
     <h1>A SEGUNDA SENHA</h1>
+
     <img src="tulla.jpg" alt="Segunda pista">
+
     <p class="clue">📍 Shibuya</p>
-    <input id="answer" type="text" placeholder="DIGITE A SENHA">
-    <button onclick="checkAnswer()">DESBLOQUEAR</button>
+
+    <form onsubmit="checkAnswer(event)">
+      <input
+        id="answer"
+        type="text"
+        placeholder="DIGITE A SENHA"
+        autocomplete="off"
+        required
+      >
+
+      <button type="submit">DESBLOQUEAR</button>
+    </form>
+
     <div class="error" id="error"></div>
+
   `;
 }
 
 function showFinal() {
+
   document.getElementById("app").innerHTML = `
-    <div class="tag">FILE UNLOCKED</div>
+
     <h1>VOCÊ CONSEGUIU.</h1>
-    <p class="clue">
+
+    <p class="final-text">
       Algumas coisas foram feitas para serem descobertas.
       Esta é uma delas.
     </p>
-    <div class="secret">HUBBLE FLOATS FREE</div>
-    <a href="https://open.spotify.com/playlist/272y43cH5m7wrM2HaSV200"
-       target="_blank">
-      <button>ACESSAR PLAYLIST</button>
+
+    <div class="secret">
+      HUBBLE FLOATS FREE
+    </div>
+
+    <a
+      href="https://open.spotify.com/playlist/272y43cH5m7wrM2HaSV200"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <button type="button">ACESSAR PLAYLIST</button>
     </a>
-    <div class="small">END OF TRANSMISSION</div>
+
   `;
 }
+
 </script>
 
 </body>
 </html>
-
