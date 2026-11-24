@@ -135,38 +135,60 @@ button:hover {
   display: none;
 }
 
+
 /* Efeito glitch */
-.falha {
+
+body.glitch {
   animation: glitch 0.9s steps(2, end);
 }
 
-.falha::after {
+body.glitch::before,
+body.glitch::after {
   content: "";
   position: fixed;
   inset: 0;
+  pointer-events: none;
+  z-index: 999;
+}
+
+body.glitch::before {
   background: repeating-linear-gradient(
     transparent 0px,
-    rgba(255,255,255,0.12) 2px,
-    transparent 4px
+    transparent 3px,
+    rgba(255,255,255,0.18) 4px
   );
-  pointer-events: none;
-  animation: glitch-linhas 0.9s steps(2, end);
+  animation: glitchLines 0.12s infinite;
+}
+
+body.glitch::after {
+  background: linear-gradient(
+    90deg,
+    transparent 20%,
+    rgba(255,0,0,0.25) 50%,
+    transparent 80%
+  );
+  animation: glitchFlash 0.15s infinite;
 }
 
 @keyframes glitch {
-  0% { transform: translateX(0); }
-  15% { transform: translateX(-8px); filter: invert(1); }
-  30% { transform: translateX(8px); }
-  45% { transform: translateX(-5px); filter: invert(1); }
-  60% { transform: translateX(5px); }
-  75% { transform: translateX(-3px); }
-  100% { transform: translateX(0); }
+  0% { transform: translateX(0); filter: none; }
+  20% { transform: translateX(-8px); filter: invert(1); }
+  40% { transform: translateX(8px); filter: none; }
+  60% { transform: translateX(-5px); filter: invert(1); }
+  80% { transform: translateX(5px); }
+  100% { transform: translateX(0); filter: none; }
 }
 
-@keyframes glitch-linhas {
-  0%, 100% { opacity: 0; }
-  20%, 60% { opacity: 1; }
+@keyframes glitchLines {
+  0% { transform: translateY(-5px); }
+  100% { transform: translateY(5px); }
 }
+
+@keyframes glitchFlash {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
 
 @media (max-width: 380px) {
   .container {
